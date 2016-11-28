@@ -5,7 +5,7 @@ import sys
 import os
 import subprocess
 from subprocess import Popen
-import pygame
+#import pygame
 
 
 #ignores GPIO errors
@@ -48,11 +48,11 @@ GPIO.output(buttonLed3, GPIO.LOW)
 GPIO.output(buttonLed4, GPIO.LOW)
 
 # Video assignment
-movie1 = '/home/pi/code/video/1.mp4'
-movie2 = '/home/pi/code/video/2.mp4'
-movie3 = '/home/pi/code/video/3.mp4'
-movie4 = '/home/pi/code/video/4.mp4'
-movie5 = '/home/pi/code/video/splash.mp4'
+movie1 = '/home/pi/code/video/1.mov'
+movie2 = '/home/pi/code/video/2.mov'
+movie3 = '/home/pi/code/video/3.mov'
+movie4 = '/home/pi/code/video/4.mov'
+movie5 = '/home/pi/code/video/splash.mov'
 
 #kills any active instance of OMXplayer on start
 os.system('killall omxplayer.bin')
@@ -62,8 +62,8 @@ process_name= "omxplayer.bin"
 
 #Uses pygame to hide desktop
 #Prevents user killing the process
-screen = pygame.display.set_mode((1024, 768), pygame.NOFRAME)
-pygame.mouse.set_visible(False)
+#screen = pygame.display.set_mode((1024, 768), pygame.NOFRAME)
+#pygame.mouse.set_visible(False)
 
 
 
@@ -80,7 +80,7 @@ while True:
 		GPIO.output(buttonLed4, GPIO.LOW)
 		os.system('killall omxplayer.bin')
 		time.sleep(1)
-		omxp = Popen(['omxplayer',movie1])
+		omxp = Popen(['omxplayer','-o','local',movie1])
 		time.sleep(1)		
 	if GPIO.input(button2):		
 		time.sleep(.01)		
@@ -91,7 +91,7 @@ while True:
 		GPIO.output(buttonLed4, GPIO.LOW)
 		os.system('killall omxplayer.bin')
 		time.sleep(1)
-		omxp = Popen(['omxplayer',movie2])
+		omxp = Popen(['omxplayer','-o','local',movie2])
 		time.sleep(1)
 	if GPIO.input(button3):		
 		time.sleep(.01)		
@@ -102,7 +102,7 @@ while True:
 		GPIO.output(buttonLed4, GPIO.LOW)
 		os.system('killall omxplayer.bin')
 		time.sleep(1)
-		omxp = Popen(['omxplayer',movie3])
+		omxp = Popen(['omxplayer','-o','local',movie3])
 		time.sleep(1)		
 	if GPIO.input(button4):
 		time.sleep(.01)		
@@ -113,11 +113,15 @@ while True:
 		GPIO.output(buttonLed4, GPIO.HIGH)
 		os.system('killall omxplayer.bin')
 		time.sleep(1)
-		omxp = Popen(['omxplayer',movie4])
+		omxp = Popen(['omxplayer','-o','local',movie4])
 		time.sleep(1)
 	if process_name not in tmp[:]:		 
 		time.sleep(.01)
-		omxp = Popen(['omxplayer',movie3])
+		GPIO.output(buttonLed1, GPIO.LOW)
+		GPIO.output(buttonLed2, GPIO.LOW)
+		GPIO.output(buttonLed3, GPIO.LOW)
+		GPIO.output(buttonLed4, GPIO.LOW)
+		omxp = Popen(['omxplayer',movie5])
 		time.sleep(1)
 	
 				
